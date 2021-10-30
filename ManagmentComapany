@@ -1,0 +1,298 @@
+
+
+/**
+ * The ManagementCompany.java is the data manager class
+ * @author Neima Abza
+ */
+
+public class ManagementCompany {
+
+    private final int MAX_PROPERTY = 5;
+    private double mgmFeePer;
+    private final int MGMT_WIDTH = 10;
+    private final int MGMT_DEPTH = 10;
+    private String name;
+    private Plot plot;
+    private Property[] properties;
+    private String taxID;
+    private int count = 0;
+
+    /**
+     *No-arg Constructor of the ManagementCompany
+     */
+    public ManagementCompany() {
+       // this.name = "";
+        //this.taxID = "";
+        plot = new Plot(0, 0, MGMT_WIDTH, MGMT_DEPTH);
+        properties = new Property[MAX_PROPERTY];
+
+    }
+
+   // paramterized constructor
+    public ManagementCompany(String name, String taxID, double mgmFee) {
+        this.plot = new Plot(0, 0, MGMT_WIDTH, MGMT_DEPTH);
+        this.properties = new Property[MAX_PROPERTY];
+        this.name = name;
+        this.taxID = taxID;
+        this.mgmFeePer = mgmFee;
+    }
+
+     // paramterized constructor
+    public ManagementCompany(String name, String taxID, double mgmFee, int x, int y, int width, int depth) {
+        this.name = name;
+        this.taxID = taxID;
+        this.mgmFeePer = mgmFee;
+        this.plot = new Plot(x, y, width, depth);
+        this.properties = new Property[MAX_PROPERTY];
+    }
+
+     // copy constructor
+    public ManagementCompany(ManagementCompany otherCompany) {
+      
+        this.name = otherCompany.name;
+        this.taxID = otherCompany.taxID;
+        this.mgmFeePer = otherCompany.mgmFeePer;
+        this.plot = otherCompany.plot;
+        this.properties = otherCompany.properties;
+    }
+
+    /**
+     *returns the value of the management fee
+     * @return mgmFeePer
+     */
+    public double getMgmFeePer() {
+        return mgmFeePer;
+    }
+
+    /**
+     *sets the value of the management fee
+     * @param mgmFeePer is the management fee
+     */
+    public void setMgmFeePer(double mgmFeePer) {
+        this.mgmFeePer = mgmFeePer;
+    }
+
+    /**
+     *returns the name value
+     * @return String
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     *sets the name value
+     * @param name is name of the property
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * returns the tax id
+     * @return String
+     */
+    public String getTaxID() {
+        return taxID;
+    }
+
+    /**
+     *sets the tax id
+     * @param taxID is the tax id of property
+     */
+    public void setTaxID(String taxID) {
+        this.taxID = taxID;
+    }
+
+    /**
+     *returns the plot
+     * @return plot
+     */
+    public Plot getPlot() {
+        return plot;
+    }
+
+    /**
+     *sets the plot
+     * @param plot is the plot
+     */
+    public void setPlot(Plot plot) {
+        this.plot = plot;
+    }
+
+    /**
+     *testes the over lap
+     * @param plot is the plot
+     * @return boolean
+     */
+    private boolean testTheOverlap(Plot plot){
+        if(count == 0)
+            return false;
+
+        for(int i = 0; i < count; i++){
+            if(properties[i].getPlot().overlaps(plot))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     *creates and adds property to the array properties
+     * @param property is an object
+     * @return int
+     */
+    public int addProperty(Property property){
+        if(property == null)
+        {   	return -2;
+        }
+        if(plot == property.getPlot() || plot.equals(property.getPlot()) )
+            return -3;
+        for(int i = 0; i < MAX_PROPERTY; i++){
+            if(properties[i] != null && property.getPlot().overlaps(properties[i].getPlot())){
+                return -4;
+            }
+        }
+        for(int i = 0; i < MAX_PROPERTY; i++){
+            if(properties[i] == null){
+                properties[i] = property;
+                return i;
+            }
+        }
+        return -1;
+        
+    }
+
+    /**
+     *creates a property object with values and adds it to the array
+     * @param name is the name of property
+     * @param city is the city of property
+     * @param rent is the rent amount of a property
+     * @param owner is the owner of the property
+     * @return int
+     */
+    public int addProperty(String name, String city, double rent, String owner){
+        Property theProperty = new Property(name, city, rent, owner);
+
+        return addProperty(theProperty);
+
+    }
+
+    /**
+     *creates property object and adds it to the array
+     * @param name is the name of the property
+     * @param city is the city of the property
+     * @param rent is the rent of the property
+     * @param owner is the owner
+     * @param x is the upper left
+     * @param y is the upper left
+     * @param width is the width
+     * @param depth is the depth
+     * @return int
+     */
+    public int addProperty(String name, String city, double rent, String owner, int x, int y, int width, int depth){
+        Property theAddedProperty = new Property(name, city, rent, owner, x, y, width, depth);
+         return addProperty(theAddedProperty);
+    }
+
+    /**
+     *returns the Max property value
+     * @return MAX_PROPERTY
+     */
+    public int getMAX_PROPERTY() {
+        return MAX_PROPERTY;
+    }
+
+    /**
+     *calculate the total rent
+     * @return total rent
+     */
+    public double totalRent(){
+        double totalRent = 0.0;
+      for(int i = 0; i < count; i++){
+          if(properties[i] != null)
+            totalRent += properties[i].getRentAmount();
+        }
+        return totalRent;
+    }
+
+    /**
+     *calculate the maximum rent
+     * @return double
+     */
+    public double maxRentProp(){
+    	double max = properties[0].getRentAmount();
+    	 for(int i =1; i< count; i++) {
+    		 if(properties[i].getRentAmount()> max)
+    			 max = properties[i].getRentAmount();
+    	 }
+    	 return max;
+        
+    }
+
+    /**
+     *calculate the maxRentPropertyIndex
+     * @return theIndex
+     */
+    public int maxRentPropertyIndex(){
+        double maxRent = 0;
+        int theIndex = -1;
+        for(int i = 0; i < count; i++){
+            if(properties[i] != null && properties[i].getRentAmount() > maxRent)
+            {
+
+                    maxRent = properties[i].getRentAmount();
+                    theIndex = i;
+
+            }
+            
+        }
+        return theIndex;
+    }
+
+    /**
+     *
+     * @param i is an int
+     * @return str
+     */
+    public String  displayPropertyAtIndex(int i) {
+    	String str = properties[i].toString();
+    	return str;
+        
+        }
+        
+    
+    
+
+    /**
+     *calculates the  management fee
+     * @return managementFee
+     */
+    public double totalManagementFee(){
+        double managementFee = 0.0;
+        for(int i = 0; i < count; i++){
+            managementFee += properties[i].getRentAmount()*(this.mgmFeePer/100);
+        }
+        return managementFee;
+    }
+
+    /**
+     *returns the information of properties in the array
+     * @return theStr
+     */
+    @Override
+    public String toString() {
+        String theStr = "";
+        theStr += "List of the properties for " + name +
+                ", taxID: " + this.taxID + "\n---------------------------------------\n" +"\n";
+      
+        for(int i = 0; i < count; i++){
+            if(properties[i] != null){
+                theStr += properties[i].toString() + "\n";
+            }
+       
+        }
+        theStr += "\n---------------------------------------\n total management Fee: " + totalRent() * getMgmFeePer()/100 + "\n";
+        return theStr;
+    }
+
+}
