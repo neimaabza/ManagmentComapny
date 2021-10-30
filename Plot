@@ -1,0 +1,148 @@
+
+/**
+ * The plot.java creates the plot of the management
+ * @author Neima Abza
+ */
+public class Plot {
+    private int x;
+    private int y;
+    private int width;
+    private int depth;
+
+    /**
+     * No-arg Constructor of the plot
+     */
+
+    public Plot() {
+        this.x = 0;
+        this.y = 0;
+        this.width = 1;
+        this.depth = 1;
+    }
+
+    /**
+     * Copy Constructor
+     * @param p is a plot object
+     */
+    public Plot(Plot p) {
+        this.x = p.getX();
+        this.y = p.getY();
+        this.width = p.getWidth();
+        this.depth = p.getDepth();
+
+    }
+
+    /**
+     * Copy Constructor
+     * @param x is the upper left od the plot
+     * @param y is the upper left od the plot
+     * @param width is the width
+     * @param depth is the depth
+     */
+    public Plot(int x, int y, int width, int depth) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.depth = depth;
+
+    }
+
+
+    /**
+     *determines if this plot overlaps the parameter
+     * @param plot is a plot
+     * @return boolean
+     */
+    public boolean overlaps(Plot plot) {
+        return x < plot.x + plot.width && x +width >plot.x && y < plot.y + plot.depth && y + depth > plot.y;
+        //return plot.testTheOverlap(this);
+    }
+
+    /**
+     *checks if the property is in the given plot
+     * @param plot is a plot object
+     * @return boolean
+     */
+    public boolean encompasses(Plot plot){
+        return x<= plot.x && x <= plot.x + plot.width && x + width >= plot.x+ plot.width && y <= plot.y + plot.depth && y + depth >= plot.y;
+
+    }
+
+    /**
+     * sets x value
+     * @param x is the upper left
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     *returns the x value
+     * @return x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     *sets the y value
+     * @param y is the upper left
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
+     *returns the y value
+     * @return y
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     *sets the width
+     * @param width is the width
+     */
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    /**
+     *returns the width value
+     * @return width
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * sets the depth value
+     * @param depth is the depth
+     */
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
+    /**
+     *returns the depth value
+     * @return depth
+     */
+    public int getDepth() {
+        return depth;
+    }
+
+    /**
+     * Prints the X,Y of the upper left corner, the width and the depth
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Upper left: " +
+                "(" + x + ","  + y + ");" +
+        " Width: " + width +
+                " Depth: " + depth
+                ;
+    }
+
+
+}
