@@ -1,0 +1,178 @@
+
+/**
+ * The property.java class is responsible for getting th information and displaying
+ * @author Neima Abza 
+ */
+
+public class Property {
+    private String city;
+    private String owner;
+    private String propertyName;
+    private double rentAmount;
+    private Plot plot;
+
+    /**
+     *No-arg Constructor of the property class
+     */
+    public Property() {
+        this.rentAmount = 0.0;
+        this.city = "";
+        this.owner = "";
+        this.propertyName = "";
+        this.plot = new Plot(0,0,1,1);
+    }
+
+    // copy Constructor
+    public void setPlot(Plot plot) {
+    	this.plot = plot;
+    	
+     /**
+      *copy constructor of the property class
+      * @param p is the property object
+      */
+    }
+    public Property(Property p) {
+        this.propertyName = p.getPropertyName();
+        this.city = p.getCity();
+        this.rentAmount = p.getRentAmount();
+        this.owner = p.getOwner();
+        this.plot = p.plot;
+    }
+
+    /**
+     *copy constructor of the property class
+     * @param propertyName is the name of the property
+     * @param city is the city of the property
+     * @param rentAmount is the amount of rent
+     * @param owner is the owner of the property
+     */
+    public Property(String propertyName, String city, double rentAmount, String owner) {
+        plot  = new Plot();
+        this.propertyName = propertyName;
+        this.city = city;
+        this.rentAmount = rentAmount;
+        this.owner = owner;
+        plot = new Plot(0,0,1,1);
+    }
+
+    /**
+     *copy constructor of the property class
+     * @param propertyName is the name of the proerty
+     * @param city is the city of the property
+     * @param rentAmount is the amount of rent
+     * @param owner is the owner of the property
+     * @param x is the upper left
+     * @param y is the upper left
+     * @param width is the width
+     * @param depth is the depth
+     */
+    public Property(String propertyName, String city, double rentAmount, String owner,int x, int y, int width, int depth) {
+        this.propertyName = propertyName;
+        this.city = city;
+        this.rentAmount = rentAmount;
+        this.owner = owner;
+        plot = new Plot(x, y, width, depth);
+    }
+
+    /**
+     *returns the property name
+     * @return propertyName
+     */
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    /**
+     *sets the property name
+     * @param propertyName is a string that sets the property name
+     */
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
+    /**
+     *returns the city
+     * @return city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     *sets the plot
+     * @param x is the upper left
+     * @param y is the upper left
+     * @param width is the width
+     * @param depth is the depth
+     * @return plot
+     */
+    public Plot setPlot(int x, int y, int width, int depth) {
+         
+    	return new Plot (x,y,width,depth);
+    }
+    /**
+     * returns the plot
+     * @return plot
+     */
+    
+    public Plot getPlot() {
+        return plot;
+    }
+
+    /**
+     *sets the city
+     * @param city is the city of the property
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    /**
+     *returns the rent amount
+     * @return rentAmount
+     */
+    public double getRentAmount() {
+        return rentAmount;
+    }
+
+    /**
+     *sets the rent amount
+     * @param rentAmount is the rent amount of the property
+     */
+    public void setRentAmount(double rentAmount) {
+        this.rentAmount = rentAmount;
+    }
+
+    /**
+     *returns the owner
+     * @return owner
+     */
+    public String getOwner() {
+        return owner;
+    }
+
+    /**
+     *sets the owner
+     * @param owner is the owner of the property
+     */
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    /**
+     *returns the information of properties in the array
+     * @return String
+     */
+
+    @Override
+    public String toString() {
+        return "PropertyName: " + propertyName + "\n" +
+                " Located in " + city + "\n" +
+                " Belonging to: " + owner + "\n" +
+                " Rent Amount: " + rentAmount;
+    }
+
+    
+
+    
+}
